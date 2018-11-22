@@ -6,27 +6,32 @@
 
     <div class="content">
 
-      <!--v-model="dataValue" (input数据绑定)@keyup.enter="addData"(enter点击事件)-->
-      <input type="text" class="content_data" placeholder="请输入数据" v-model="dataValue" @keyup.enter="addData"/>
+      <!--v-model="dataValue" (input数据绑定)
+      @keyup.enter="addData"(enter点击事件)-->
+      <input
+        type="text"
+        class="content-data"
+        placeholder="请输入数据"
+        v-model="dataValue"
+        @keyup.enter="addData"
+      />
 
-      <!--v-show="!list.length"(表达式，布尔值，样式隐藏显示)-->
-      <div class="content_data_show" v-show="!list.length">
-        <span>
-          <img src="../assets/01_提示成功.png"/>
-          <a>&nbsp;暂无数据，请添加数据</a>
-        </span>
+      <!--v-show="!listArr.length"(表达式，布尔值，样式隐藏显示)-->
+      <div class="content-data-show" v-show="!listArr.length">
+        <img src="../assets/success.png"/>
+        <span>&nbsp;暂无数据，请添加数据</span>
       </div>
 
-      <ul class="data_ul">
-        <li class="data_li" v-for="item in list" :key="item.title">
-          <label class="label">{{item.title}}</label>
-          <span class="data_delete" @click="deleteApp(item)">
-            <img src="../assets/04_提示错误.png"/>
+      <ul class="data-list-show">
+        <li class="data-line" v-for="(item,index) in listArr" :key="index">
+          {{item.title}}
+          <span class="data-delete" @click="deleteData(item)">
+            <img src="../assets/error.png"/>
           </span>
         </li>
       </ul>
 
-      <span class="clean" @click="clean">清除</span>
+      <span class="delete-all" @click="deleteAll">清除</span>
     </div>
   </div>
 </template>
@@ -34,25 +39,27 @@
 <script>
 export default {
   name: 'demo',
-    data () {
-        return {
-            list: [],
-            dataValue: ''
-        }
-    },
+  data () {
+    return {
+      listArr: [],
+      dataValue: ''
+    }
+  },
   methods: {
     addData: function () { // 添加数据
-      this.list.push({ // 数组追加对象
-        title: this.dataValue
-      })
-      this.dataValue = ''
+      if (this.dataValue !== '') {
+        this.listArr.push({ // 数组追加对象
+          title: this.dataValue
+        })
+        this.dataValue = ''
+      }
     },
-    deleteApp: function (dataValue) { // 删除数据
-      let index = this.list.indexOf(dataValue) // 根据下标获取当前元素
-      this.list.splice(index, 1) // 删除此下标对应的一个元素
+    deleteData: function (dataValue) { // 删除数据
+      let index = this.listArr.indexOf(dataValue) // 根据下标获取当前元素
+      this.listArr.splice(index, 1) // 删除此下标对应的一个元素
     },
-    clean: function () { // 清除数据
-      this.list = []
+    deleteAll: function () { // 清除数据
+      this.listArr = []
     }
   }
 }
@@ -72,28 +79,25 @@ export default {
     position: relative;
     text-align: center;
   }
-  .content_data {
+  .content-data {
     width: 80%;
     margin-top: 40px;
     padding: 20px 30px;
   }
-  .content_data_show {
+  .content-data-show {
     width: 80%;
     border: 1px solid #50dd69;
     margin: 40px auto 90px;
     padding: 20px 30px;
     text-align: left;
   }
-  .content_data_show span {
+  .content-data-show img {
+    display: inline-block;
+  }
+  .content-data-show span {
     color: #50dd69;
   }
-  /*.content_data_show span:before{*/
-    /*content:url('../assets/01_提示成功.png');*/
-    /*vertical-align:middle;*/
-    /*display:inline-block;*/
-    /*padding-right: 10px;*/
-   /*}*/
-  .clean {
+  .delete-all {
     width: 80px;
     background-color: azure;
     cursor: pointer;
@@ -102,17 +106,17 @@ export default {
     right: 10%;
     line-height: 40px;
   }
-  .clean:hover {
+  .delete-all:hover {
     background-color: rgba(129, 255, 210, 0.35);
   }
-  .clean:active {
+  .delete-all:active {
     background-color: #80ffb8;
   }
-  .data_ul {
+  .data-list-show {
     padding: 0;
     margin-bottom: 90px;
   }
-  .data_li {
+  .data-line {
     border-bottom: 1px solid #a6a6a6;
     list-style: none;
     width: 80%;
@@ -120,9 +124,60 @@ export default {
     padding: 20px 30px;
     text-align: left;
   }
-  .data_delete {
+  .data-delete {
     position: absolute;
-    right: 15%;
+    right: 20%;
     cursor: pointer;
+  }
+  @media (min-width: 1024px) {
+    .content {
+      width: 40%;
+    }
+    .content-data {
+      width: 60%;
+      padding: 20px 15px;
+    }
+    .content-data-show {
+      width: 60%;
+      padding: 20px 15px;
+    }
+    .data-line {
+      width: 60%;
+      padding: 20px 15px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .data-delete {
+      position: absolute;
+      right: 10%;
+      cursor: pointer;
+    }
+  }
+   @media (max-width: 768px) {
+    .content {
+      width: 80%;
+    }
+    .content-data {
+      width: 60%;
+      padding: 20px 15px;
+    }
+    .content-data-show {
+      width: 60%;
+      padding: 20px 15px;
+    }
+    .data-line {
+      width: 60%;
+      padding: 20px 15px;
+    }
+    .data-delete {
+      position: absolute;
+      right: 20%;
+      cursor: pointer;
+    }
+  }
+   @media (max-width: 414px) {
+    .content {
+      width: 100%;
+    }
   }
 </style>
