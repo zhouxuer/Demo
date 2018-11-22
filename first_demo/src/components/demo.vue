@@ -25,9 +25,7 @@
       <ul class="data-list-show">
         <li class="data-line" v-for="(item,index) in listArr" :key="index">
           {{item.title}}
-          <span class="data-delete" @click="deleteData(item)">
-            <img src="../assets/error.png"/>
-          </span>
+          <img class="data-delete" @click="deleteData(item)" src="../assets/error.png"/>
         </li>
       </ul>
 
@@ -38,7 +36,7 @@
 
 <script>
 export default {
-  name: 'demo',
+  name: 'Demo',
   data () {
     return {
       listArr: [],
@@ -46,7 +44,7 @@ export default {
     }
   },
   methods: {
-    addData: function () { // 添加数据
+    addData () { // 添加数据
       if (this.dataValue !== '') {
         this.listArr.push({ // 数组追加对象
           title: this.dataValue
@@ -54,130 +52,125 @@ export default {
         this.dataValue = ''
       }
     },
-    deleteData: function (dataValue) { // 删除数据
+    deleteData (dataValue) { // 删除数据
       let index = this.listArr.indexOf(dataValue) // 根据下标获取当前元素
       this.listArr.splice(index, 1) // 删除此下标对应的一个元素
     },
-    deleteAll: function () { // 清除数据
+    deleteAll () { // 清除数据
       this.listArr = []
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@window-width:80%;
   .nav {
-    width: 100%;
+    width: @window-width + 20%;
     background-color: #f2edf7;
     padding: 20px;
   }
   .content {
-    width: 60%;
+    width: @window-width - 20%;
     background-color: azure;
     border: 1px solid #a6a6a6;
     margin: 50px auto;
     position: relative;
     text-align: center;
-  }
-  .content-data {
-    width: 80%;
-    margin-top: 40px;
-    padding: 20px 30px;
-  }
-  .content-data-show {
-    width: 80%;
-    border: 1px solid #50dd69;
-    margin: 40px auto 90px;
-    padding: 20px 30px;
-    text-align: left;
-  }
-  .content-data-show img {
-    display: inline-block;
-  }
-  .content-data-show span {
-    color: #50dd69;
-  }
-  .delete-all {
-    width: 80px;
-    background-color: azure;
-    cursor: pointer;
-    position: absolute;
-    bottom: 20px;
-    right: 10%;
-    line-height: 40px;
-  }
-  .delete-all:hover {
-    background-color: rgba(129, 255, 210, 0.35);
-  }
-  .delete-all:active {
-    background-color: #80ffb8;
-  }
-  .data-list-show {
-    padding: 0;
-    margin-bottom: 90px;
-  }
-  .data-line {
-    border-bottom: 1px solid #a6a6a6;
-    list-style: none;
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px 30px;
-    text-align: left;
-  }
-  .data-delete {
-    position: absolute;
-    right: 20%;
-    cursor: pointer;
-  }
-  @media (min-width: 1024px) {
-    .content {
-      width: 40%;
-    }
     .content-data {
-      width: 60%;
-      padding: 20px 15px;
+      width: @window-width;
+      margin-top: 40px;
+      padding: 20px 30px;
     }
     .content-data-show {
-      width: 60%;
-      padding: 20px 15px;
+      width: @window-width;
+      border: 1px solid #50dd69;
+      margin: 40px auto 90px;
+      padding: 20px 30px;
+      text-align: left;
+      .content-data-show img {
+        display: inline-block;
+      }
+      .content-data-show span {
+        color: #50dd69;
+      }
     }
-    .data-line {
-      width: 60%;
-      padding: 20px 15px;
+    .data-list-show {
+      padding: 0;
+      margin-bottom: 90px;
+      .data-line {
+        border-bottom: 1px solid #a6a6a6;
+        list-style: none;
+        width: @window-width;
+        margin: 20px auto;
+        padding: 20px 30px;
+        text-align: left;
+        .data-delete {
+          position: absolute;
+          right: 20%;
+          cursor: pointer;
+        }
+      }
+    }
+    .delete-all {
+      width: 80px;
+      background-color: azure;
+      cursor: pointer;
+      position: absolute;
+      bottom: 20px;
+      right: 10%;
+      line-height: 40px;
+      &:hover {
+        background-color: rgba(129, 255, 210, 0.35);
+      }
+      &:active {
+        background-color: #80ffb8;
+      }
     }
   }
   @media (max-width: 1024px) {
-    .data-delete {
-      position: absolute;
-      right: 10%;
-      cursor: pointer;
+    .content {
+      width: @window-width / 2;
+      .content-data {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+      }
+      .content-data-show {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+      }
+      .data-line {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+        .data-delete {
+          right: 10%;
+        }
+      }
     }
   }
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     .content {
-      width: 80%;
-    }
-    .content-data {
-      width: 60%;
-      padding: 20px 15px;
-    }
-    .content-data-show {
-      width: 60%;
-      padding: 20px 15px;
-    }
-    .data-line {
-      width: 60%;
-      padding: 20px 15px;
-    }
-    .data-delete {
-      position: absolute;
-      right: 20%;
-      cursor: pointer;
+      width: @window-width;
+      .content-data {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+      }
+      .content-data-show {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+      }
+      .data-line {
+        width: @window-width - 20%;
+        padding: 20px 15px;
+        .data-delete {
+          right: 20%;
+        }
+      }
     }
   }
-   @media (max-width: 414px) {
+  @media (max-width: 414px) {
     .content {
-      width: 100%;
+      width: @window-width + 20%;
     }
   }
 </style>
