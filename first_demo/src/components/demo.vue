@@ -65,14 +65,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@window-width:80%;
   .nav {
-    width: 100%;
+    width: @window-width + 20%;
     background-color: #f2edf7;
     padding: 20px;
   }
   .content {
-    width: 60%;
+    width: @window-width - 20%;
     background-color: azure;
     border: 1px solid #a6a6a6;
     margin: 50px auto;
@@ -80,12 +81,12 @@ export default {
     text-align: center;
   }
   .content-data {
-    width: 80%;
+    width: @window-width;
     margin-top: 40px;
     padding: 20px 30px;
   }
   .content-data-show {
-    width: 80%;
+    width: @window-width;
     border: 1px solid #50dd69;
     margin: 40px auto 90px;
     padding: 20px 30px;
@@ -119,7 +120,7 @@ export default {
   .data-line {
     border-bottom: 1px solid #a6a6a6;
     list-style: none;
-    width: 80%;
+    width: @window-width;
     margin: 20px auto;
     padding: 20px 30px;
     text-align: left;
@@ -131,53 +132,49 @@ export default {
   }
   @media (min-width: 1024px) {
     .content {
-      width: 40%;
+      width: @window-width / 2;
     }
     .content-data {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
     .content-data-show {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
     .data-line {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
   }
   @media (max-width: 1024px) {
     .data-delete {
-      position: absolute;
       right: 10%;
-      cursor: pointer;
     }
   }
    @media (max-width: 768px) {
     .content {
-      width: 80%;
+      width: @window-width;
     }
     .content-data {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
     .content-data-show {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
     .data-line {
-      width: 60%;
+      width: @window-width - 20%;
       padding: 20px 15px;
     }
     .data-delete {
-      position: absolute;
       right: 20%;
-      cursor: pointer;
     }
   }
    @media (max-width: 414px) {
     .content {
-      width: 100%;
+      width: @window-width + 20%;
     }
   }
 </style>
