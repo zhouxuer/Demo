@@ -166,6 +166,7 @@ export default {
           right: 20%;
         }
       }
+
     }
   }
   @media (max-width: 414px) {
